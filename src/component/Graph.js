@@ -11,13 +11,18 @@ const SimpleGraph = () => {
 
 	const [buttonDisabled, setButtonDisabled] = useState(false);
 
+	const [inputInvalid, setInputInvalid] = useState(false);
+
 	// record last value, improve efficiency when text not changed
 	let previousValue = "";
 
 	useEffect(() => createD3Graph("graph"), []);
 
 	const onInputChange = (e) => {
-		setInputValue(e.target.value);
+		let value = e.target.value.toUpperCase();
+		setInputValue(value);
+		// async operation, cannot directly use inputValue here to test
+		setInputInvalid(!(/^[A-Z]*$/).test(value));
 	};
 
 	const onDrawClick = () => {
@@ -37,18 +42,23 @@ const SimpleGraph = () => {
 					<div className="inputWrapper">
 						<TextField
 							id="standard-basic"
-							label="Example: ABABAC"
 							variant="outlined"
 							style={{ width: "15vw" }}
 							value={inputValue}
 							onChange={onInputChange}
+							error={inputInvalid}
+							label={
+								inputInvalid
+									? "Only upper case english letter supported."
+									: "Example: ABABAC"
+							}
 						/>
 					</div>
 					<Button
 						variant="contained"
 						color="success"
 						onClick={onDrawClick}
-						disabled={buttonDisabled}
+						disabled={buttonDisabled || inputInvalid}
 					>
 						Draw
 					</Button>

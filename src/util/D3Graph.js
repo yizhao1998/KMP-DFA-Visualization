@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import './D3Graph.css';
+import "./D3Graph.css";
 
 export default (elementId = "graph", jsonData) => {
 	// set the dimensions and margins of the graph
@@ -7,10 +7,10 @@ export default (elementId = "graph", jsonData) => {
 		width = 1000 - margin.left - margin.right,
 		height = 600 - margin.top - margin.bottom;
 
-    const eleSelector = '#' + elementId;
+	const eleSelector = "#" + elementId;
 
-    // remove all previous
-    d3.select(eleSelector).selectAll('*').remove();
+	// remove all previous
+	d3.select(eleSelector).selectAll("*").remove();
 
 	// append the svg object to the body of the page
 	const svg = d3
@@ -23,14 +23,14 @@ export default (elementId = "graph", jsonData) => {
 		.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    if (!jsonData) {
-        // Read dummy data
-	    d3.json(process.env.PUBLIC_URL + '/mock/data.json').then(render);
-    } else {
-        render(jsonData);
-    }
+	if (!jsonData) {
+		// Read dummy data
+		d3.json(process.env.PUBLIC_URL + "/mock/data.json").then(render);
+	} else {
+		render(jsonData);
+	}
 
-    function render(data) {
+	function render(data) {
 		// List of node names
 		var allNodes = data.nodes.map((d) => d.name);
 
@@ -87,27 +87,27 @@ export default (elementId = "graph", jsonData) => {
 			.style("fill", "none")
 			.attr("stroke", "black");
 
-        const linkLabels = svg
-            .selectAll("myLinkLables")
-            .data(data.links)
-            .enter()
-            .append("text")
+		const linkLabels = svg
+			.selectAll("myLinkLables")
+			.data(data.links)
+			.enter()
+			.append("text")
 			.attr("x", (d) => {
-                let start = x(idToNode[d.source].name); // X position of start node on the X axis
+				let start = x(idToNode[d.source].name); // X position of start node on the X axis
 				let end = x(idToNode[d.target].name); // X position of end node
-                return (end - start) / 2 + start;
-            })
+				return (end - start) / 2 + start;
+			})
 			.attr("y", (d) => {
-                let start = x(idToNode[d.source].name); // X position of start node on the X axis
+				let start = x(idToNode[d.source].name); // X position of start node on the X axis
 				let end = x(idToNode[d.target].name); // X position of end node
-                if (d.type === 'forward') {
-                    return height - 35;
-                } else {
-                    return height - ((start - end) / 2) - 35;
-                }
-            })
+				if (d.type === "forward") {
+					return height - 35;
+				} else {
+					return height - (start - end) / 2 - 35;
+				}
+			})
 			.text((d) => d.desc)
-            .style("fill", "black")
+			.style("fill", "black")
 			.style("text-anchor", "middle");
 
 		// the bottom point of the self link circle
@@ -135,15 +135,15 @@ export default (elementId = "graph", jsonData) => {
 			.style("stroke", "green")
 			.style("fill", "none");
 
-        const selfLinkLabels = svg
-            .selectAll("mySelfLinkLabels")
-            .data(data.selfLinks)
-            .enter()
-            .append("text")
-            .attr("x", (d) => x(idToNode[d.node].name))
-            .attr("y", (d) => height - 30 - d.radius * 2 - 5)
-            .text((d) => d.desc)
-            .style("fill", "black")
+		const selfLinkLabels = svg
+			.selectAll("mySelfLinkLabels")
+			.data(data.selfLinks)
+			.enter()
+			.append("text")
+			.attr("x", (d) => x(idToNode[d.node].name))
+			.attr("y", (d) => height - 30 - d.radius * 2 - 5)
+			.text((d) => d.desc)
+			.style("fill", "black")
 			.style("text-anchor", "middle");
 
 		// put nodes at last, to cover the external parts
@@ -167,17 +167,14 @@ export default (elementId = "graph", jsonData) => {
 			.attr("x", (d) => x(d.name))
 			.attr("y", height - 25)
 			.text((d) => d.name)
-            .style("fill", "black")
+			.style("fill", "black")
 			.style("text-anchor", "middle");
 
 		// nodes listen to event
 		function nodeMouseOverHighlight(d) {
 			// Highlight the nodes: every node is green except of him
-			nodes.style("fill", "#B8B8B8");
-            labels.style("fill", "#B8B8B8");
-			if (this.tagName === "circle") {
-				d3.select(this).style("fill", "#69b3b2");
-			}
+			nodes.style("fill", (e) => (e.id === d.id ? "#69b3b2" : "#B8B8B8"));
+			// labels.style("fill", (e) => (e.id === d.id ? "black" : "#B8B8B8"));
 			// Highlight the connections
 			// only link start from this node is highlighted
 			links
@@ -190,12 +187,20 @@ export default (elementId = "graph", jsonData) => {
 					a.node === d.id ? "#69b3b2" : "#b8b8b8"
 				)
 				.style("stroke-width", (a) => (a.node === d.id ? 4 : 1));
+			linkLabels.style("fill", (e) =>
+				e.source === d.id ? "black" : "#B8B8B8"
+			);
+			selfLinkLabels.style("fill", (e) =>
+				e.node === d.id ? "black" : "#B8B8B8"
+			);
 		}
 
 		function nodeMouseLeaveDeHighlight(d) {
 			nodes.style("fill", "#69b3a2");
 			links.style("stroke", "black").style("stroke-width", "1");
 			selfLinks.style("stroke", "green").style("stroke-width", "1");
+            linkLabels.style("fill", "black");
+            selfLinkLabels.style("fill", "black");
 		}
 
 		// nodes and labels both listen to the mouse over and mouse out event
@@ -211,6 +216,12 @@ export default (elementId = "graph", jsonData) => {
 		function linkMouseOverHighlight(d) {
 			// Highlight the nodes: every node is green except of him
 			links.style("stroke", "#B8B8B8");
+            linkLabels.style("fill", (e) =>
+				e.source === d.source && e.target == d.target ? "black" : "#B8B8B8"
+			);
+            selfLinkLabels.style("fill", (e) =>
+				e.node === d.node ? "black" : "#B8B8B8"
+			);
 			selfLinks.style("stroke", "#B8B8B8");
 			d3.select(this)
 				.style("stroke", "#69b3b2")
@@ -229,6 +240,8 @@ export default (elementId = "graph", jsonData) => {
 			nodes.style("fill", "#69b3a2");
 			links.style("stroke", "black").style("stroke-width", "1");
 			selfLinks.style("stroke", "green").style("stroke-width", "1");
+            linkLabels.style("fill", "black");
+            selfLinkLabels.style("fill", "black");
 		}
 
 		// links and selfLinks both listen to the mouse over and mouse out event
@@ -241,5 +254,5 @@ export default (elementId = "graph", jsonData) => {
 		});
 	}
 
-    return svg;
+	return svg;
 };
