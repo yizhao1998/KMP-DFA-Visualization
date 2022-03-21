@@ -23,7 +23,7 @@ const SimpleGraph = () => {
 					<div className="inputWrapper">
 						<TextField
 							id="standard-basic"
-							label="Input KMP String"
+							label="Example: ABABAC"
 							variant="outlined"
 							style={{ width: "15vw" }}
 							value={inputValue}
