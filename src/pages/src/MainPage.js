@@ -12,10 +12,10 @@ const MainPage = () => {
 				<div className="main-header">
 					<Header />
 				</div>
-				<div>
+				<div className="main-body">
 					<Body />
 				</div>
-				<div>
+				<div className="main-foot">
 					<Foot />
 				</div>
 			</Stack>

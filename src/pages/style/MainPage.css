@@ -8,3 +8,17 @@
     align-items: center;
     justify-content: center;
 }
+
+.main-body {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-foot {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

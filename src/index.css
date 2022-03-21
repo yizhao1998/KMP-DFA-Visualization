@@ -1,3 +1,8 @@
+/* html,
+body {
+  height: 1000%
+} */
+
 body {
   margin: 0;
   font-family: "Lucida Console", "Courier New", monospace;
@@ -9,4 +14,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.mainpage-wrapper {
+  height : 100%
 }

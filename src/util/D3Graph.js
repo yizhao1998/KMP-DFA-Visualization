@@ -5,7 +5,10 @@ const D3Graph = (elementId = "graph", jsonData) => {
 	// set the dimensions and margins of the graph
 	const margin = { top: 20, right: 100, bottom: 20, left: 100 },
 		width = 1000 - margin.left - margin.right,
-		height = 600 - margin.top - margin.bottom;
+		height = 450 - margin.top - margin.bottom;
+
+	const strokeInit = 2;
+	const strokeDeep = 6;
 
 	const eleSelector = "#" + elementId;
 
@@ -165,7 +168,7 @@ const D3Graph = (elementId = "graph", jsonData) => {
 			.enter()
 			.append("text")
 			.attr("x", (d) => x(d.name))
-			.attr("y", height - 25)
+			.attr("y", height - 23)
 			.text((d) => d.name)
 			.style("fill", "black")
 			.style("text-anchor", "middle");
@@ -181,12 +184,16 @@ const D3Graph = (elementId = "graph", jsonData) => {
 				.style("stroke", (a) =>
 					a.source === d.id ? "#69b3b2" : "#b8b8b8"
 				)
-				.style("stroke-width", (a) => (a.source === d.id ? 4 : 1));
+				.style("stroke-width", (a) =>
+					a.source === d.id ? strokeDeep : strokeInit
+				);
 			selfLinks
 				.style("stroke", (a) =>
 					a.node === d.id ? "#69b3b2" : "#b8b8b8"
 				)
-				.style("stroke-width", (a) => (a.node === d.id ? 4 : 1));
+				.style("stroke-width", (a) =>
+					a.node === d.id ? strokeDeep : strokeInit
+				);
 			linkLabels.style("fill", (e) =>
 				e.source === d.id ? "black" : "#B8B8B8"
 			);
@@ -197,8 +204,10 @@ const D3Graph = (elementId = "graph", jsonData) => {
 
 		function nodeMouseLeaveDeHighlight(d) {
 			nodes.style("fill", "#69b3a2");
-			links.style("stroke", "black").style("stroke-width", "1");
-			selfLinks.style("stroke", "green").style("stroke-width", "1");
+			links.style("stroke", "black").style("stroke-width", strokeInit);
+			selfLinks
+				.style("stroke", "green")
+				.style("stroke-width", strokeInit);
 			linkLabels.style("fill", "black");
 			selfLinkLabels.style("fill", "black");
 		}
@@ -215,14 +224,22 @@ const D3Graph = (elementId = "graph", jsonData) => {
 		// links listen to event
 		function linkMouseOverHighlight(d) {
 			// Highlight the nodes: every node is green except of him
-			links.style("stroke", (e) =>
-				e.source === d.source && e.target === d.target
-					? "#69b3b2"
-					: "#B8B8B8"
-			);
-			selfLinks.style("stroke", (e) =>
-				e.node === d.node ? "#69b3b2" : "#B8B8B8"
-			);
+			links
+				.style("stroke", (e) =>
+					e.source === d.source && e.target === d.target
+						? "#69b3b2"
+						: "#B8B8B8"
+				)
+				.style("stroke-width", (e) =>
+					e.source === d.source && e.target === d.target
+						? strokeDeep
+						: strokeInit
+				);
+			selfLinks
+				.style("stroke", (e) =>
+					e.node === d.node ? "#69b3b2" : "#B8B8B8"
+				)
+				.style((e) => (e.node === d.node ? strokeDeep : strokeInit));
 			linkLabels.style("fill", (e) =>
 				e.source === d.source && e.target === d.target
 					? "#69b3b2"
@@ -243,8 +260,10 @@ const D3Graph = (elementId = "graph", jsonData) => {
 
 		function linkMouseLeaveDeHighlight(d) {
 			nodes.style("fill", "#69b3a2");
-			links.style("stroke", "black").style("stroke-width", "1");
-			selfLinks.style("stroke", "green").style("stroke-width", "1");
+			links.style("stroke", "black").style("stroke-width", strokeInit);
+			selfLinks
+				.style("stroke", "green")
+				.style("stroke-width", strokeInit);
 			linkLabels.style("fill", "black");
 			selfLinkLabels.style("fill", "black");
 		}

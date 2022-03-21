@@ -6,7 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
+    <div className='mainpage-wrapper'>
     <MainPage />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
