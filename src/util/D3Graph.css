@@ -1,0 +1,13 @@
+/* temporarily not effective */
+
+.active {
+    fill: #69b3b2;
+    stroke: #69b3b2;
+    stroke-width: 4
+}
+
+.inactive {
+    fill: #b8b8b8;
+    stroke: #b8b8b8;
+    stroke-width: 1
+}

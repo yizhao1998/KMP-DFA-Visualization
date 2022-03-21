@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import './D3Graph.css';
 
 export default (elementId = "graph", jsonData) => {
 	// set the dimensions and margins of the graph
@@ -86,6 +87,29 @@ export default (elementId = "graph", jsonData) => {
 			.style("fill", "none")
 			.attr("stroke", "black");
 
+        const linkLabels = svg
+            .selectAll("myLinkLables")
+            .data(data.links)
+            .enter()
+            .append("text")
+			.attr("x", (d) => {
+                let start = x(idToNode[d.source].name); // X position of start node on the X axis
+				let end = x(idToNode[d.target].name); // X position of end node
+                return (end - start) / 2 + start;
+            })
+			.attr("y", (d) => {
+                let start = x(idToNode[d.source].name); // X position of start node on the X axis
+				let end = x(idToNode[d.target].name); // X position of end node
+                if (d.type === 'forward') {
+                    return height - 35;
+                } else {
+                    return height - ((start - end) / 2) - 35;
+                }
+            })
+			.text((d) => d.desc)
+            .style("fill", "black")
+			.style("text-anchor", "middle");
+
 		// the bottom point of the self link circle
 		const bottom = height - 30;
 		const initRadius = 20;
@@ -111,6 +135,17 @@ export default (elementId = "graph", jsonData) => {
 			.style("stroke", "green")
 			.style("fill", "none");
 
+        const selfLinkLabels = svg
+            .selectAll("mySelfLinkLabels")
+            .data(data.selfLinks)
+            .enter()
+            .append("text")
+            .attr("x", (d) => x(idToNode[d.node].name))
+            .attr("y", (d) => height - 30 - d.radius * 2 - 5)
+            .text((d) => d.desc)
+            .style("fill", "black")
+			.style("text-anchor", "middle");
+
 		// put nodes at last, to cover the external parts
 		// Add the circle for the nodes
 		const nodes = svg
@@ -132,13 +167,14 @@ export default (elementId = "graph", jsonData) => {
 			.attr("x", (d) => x(d.name))
 			.attr("y", height - 25)
 			.text((d) => d.name)
-			.style("text-anchor", "middle")
-			.style("z-index", "3");
+            .style("fill", "black")
+			.style("text-anchor", "middle");
 
 		// nodes listen to event
 		function nodeMouseOverHighlight(d) {
 			// Highlight the nodes: every node is green except of him
 			nodes.style("fill", "#B8B8B8");
+            labels.style("fill", "#B8B8B8");
 			if (this.tagName === "circle") {
 				d3.select(this).style("fill", "#69b3b2");
 			}

@@ -39,24 +39,39 @@ const kmp = (pattern) => {
 	let nodes = Array.from(Array(M + 1).keys()).map((d) => {
 		return { id: d, name: d };
 	});
-    const links = [];
-    const selfLinks = [];
-    for (let i = 0; i < R; ++i) {
-        for (let j = 0; j < M; ++j) {
+    let links = [];
+    let selfLinks = [];
+    for (let j = 0; j < M; ++j) {
+        const selfLinkMap = {};
+        const linkMap = {};
+        for (let i = 0; i < R; ++i) {
             if (dfa[i][j] == j) {
-                selfLinks.push({
-                    node: j,
-                    desc: characters[i]
-                });
+                if (!selfLinkMap[j]) {
+                    selfLinkMap[j] = {
+                        node: j,
+                        desc: characters[i]
+                    };
+                } else {
+                    selfLinkMap[j].desc += "," + characters[i];
+                }
             } else {
-                links.push({
-                    source: j,
-                    target: dfa[i][j],
-                    type: dfa[i][j] > j ? FORWARD : BACKWARD,
-                    desc: characters[i]
-                });
+                let target = dfa[i][j];
+                if (!linkMap[target]) {
+                    linkMap[target] = {
+                        source: j,
+                        target,
+                        type: target > j ? FORWARD : BACKWARD,
+                        desc: characters[i]
+                    };
+                } else {
+                    linkMap[target].desc += "," + characters[i];
+                }
             }
         }
+        console.log(linkMap);
+        console.log(selfLinkMap);
+        selfLinks = selfLinks.concat(Object.values(selfLinkMap));
+        links = links.concat(Object.values(linkMap));
     }
     return {
         nodes,
@@ -65,4 +80,5 @@ const kmp = (pattern) => {
     };
 };
 
-export default kmp;
+// export default kmp;
+console.log(kmp("ABABAC"));
