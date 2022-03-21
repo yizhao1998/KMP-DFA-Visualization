@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, TextField, Stack } from "@mui/material";
 import "./Graph.css";
 import D3Graph from "../util/D3Graph";

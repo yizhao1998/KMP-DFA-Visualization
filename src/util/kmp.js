@@ -45,7 +45,7 @@ const kmp = (pattern) => {
         const selfLinkMap = {};
         const linkMap = {};
         for (let i = 0; i < R; ++i) {
-            if (dfa[i][j] == j) {
+            if (dfa[i][j] === j) {
                 if (!selfLinkMap[j]) {
                     selfLinkMap[j] = {
                         node: j,
