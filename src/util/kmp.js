@@ -13,8 +13,6 @@ const kmp = (pattern) => {
 			characters.push(pattern[i]);
 		}
 	}
-	console.log(characters);
-	console.log(charactersInverse);
 	const R = characters.length;
 	const M = len;
 	let dfa = Array(R)
@@ -67,4 +65,4 @@ const kmp = (pattern) => {
     };
 };
 
-console.log(JSON.stringify(kmp("ABABAC")));
+export default kmp;

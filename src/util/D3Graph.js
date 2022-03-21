@@ -1,14 +1,19 @@
 import * as d3 from "d3";
 
-export default () => {
+export default (elementId = "graph", jsonData) => {
 	// set the dimensions and margins of the graph
 	const margin = { top: 20, right: 100, bottom: 20, left: 100 },
 		width = 1000 - margin.left - margin.right,
 		height = 600 - margin.top - margin.bottom;
 
+    const eleSelector = '#' + elementId;
+
+    // remove all previous
+    d3.select(eleSelector).selectAll('*').remove();
+
 	// append the svg object to the body of the page
 	const svg = d3
-		.select("#graph")
+		.select(eleSelector)
 		.append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom)
@@ -17,8 +22,14 @@ export default () => {
 		.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	// Read dummy data
-	d3.json(process.env.PUBLIC_URL + "/mock/data.json").then(function (data) {
+    if (!jsonData) {
+        // Read dummy data
+	    d3.json(process.env.PUBLIC_URL + '/mock/data.json').then(render);
+    } else {
+        render(jsonData);
+    }
+
+    function render(data) {
 		// List of node names
 		var allNodes = data.nodes.map((d) => d.name);
 
@@ -170,7 +181,9 @@ export default () => {
 				.style("stroke-width", "4");
 			// highlight the nodes
 			nodes.style("fill", (node) =>
-				node.id == d.source || node.id === d.target || node.id === d.node
+				node.id == d.source ||
+				node.id === d.target ||
+				node.id === d.node
 					? "#69b3b2"
 					: "#B8B8B8"
 			);
@@ -190,5 +203,7 @@ export default () => {
 				linkMouseLeaveDeHighlight(d);
 			});
 		});
-	});
+	}
+
+    return svg;
 };
