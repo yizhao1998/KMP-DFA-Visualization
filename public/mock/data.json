@@ -37,6 +37,24 @@
       "desc": "A"
     },
     {
+      "source": 1,
+      "target": 0,
+      "type": "backward",
+      "desc": "C"
+    },
+    {
+      "source": 1,
+      "target": 2,
+      "type": "forward",
+      "desc": "B"
+    },
+    {
+      "source": 2,
+      "target": 0,
+      "type": "backward",
+      "desc": "B,C"
+    },
+    {
       "source": 2,
       "target": 3,
       "type": "forward",
@@ -44,9 +62,27 @@
     },
     {
       "source": 3,
+      "target": 0,
+      "type": "backward",
+      "desc": "C"
+    },
+    {
+      "source": 3,
       "target": 1,
       "type": "backward",
       "desc": "A"
+    },
+    {
+      "source": 3,
+      "target": 4,
+      "type": "forward",
+      "desc": "B"
+    },
+    {
+      "source": 4,
+      "target": 0,
+      "type": "backward",
+      "desc": "B,C"
     },
     {
       "source": 4,
@@ -61,58 +97,10 @@
       "desc": "A"
     },
     {
-      "source": 1,
-      "target": 2,
-      "type": "forward",
-      "desc": "B"
-    },
-    {
-      "source": 2,
-      "target": 0,
-      "type": "backward",
-      "desc": "B"
-    },
-    {
-      "source": 3,
-      "target": 4,
-      "type": "forward",
-      "desc": "B"
-    },
-    {
-      "source": 4,
-      "target": 0,
-      "type": "backward",
-      "desc": "B"
-    },
-    {
       "source": 5,
       "target": 4,
       "type": "backward",
       "desc": "B"
-    },
-    {
-      "source": 1,
-      "target": 0,
-      "type": "backward",
-      "desc": "C"
-    },
-    {
-      "source": 2,
-      "target": 0,
-      "type": "backward",
-      "desc": "C"
-    },
-    {
-      "source": 3,
-      "target": 0,
-      "type": "backward",
-      "desc": "C"
-    },
-    {
-      "source": 4,
-      "target": 0,
-      "type": "backward",
-      "desc": "C"
     },
     {
       "source": 5,
@@ -123,16 +111,12 @@
   ],
   "selfLinks": [
     {
+      "node": 0,
+      "desc": "B,C"
+    },
+    {
       "node": 1,
       "desc": "A"
-    },
-    {
-      "node": 0,
-      "desc": "B"
-    },
-    {
-      "node": 0,
-      "desc": "C"
     }
   ]
 }

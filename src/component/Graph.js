@@ -53,7 +53,6 @@ const SimpleGraph = () => {
 						Draw
 					</Button>
 				</Stack>
-
 				<div id="graph"></div>
 			</div>
 		</>
