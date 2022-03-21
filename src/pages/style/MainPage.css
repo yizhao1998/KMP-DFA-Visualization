@@ -1,0 +1,10 @@
+:root {
+    background-color: bisque;
+}
+
+.main-header {
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

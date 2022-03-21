@@ -1,0 +1,10 @@
+.graph-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputWrapper {
+    display: flex;
+    align-items: stretch;
+}
