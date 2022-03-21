@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import "./D3Graph.css";
 
-export default (elementId = "graph", jsonData) => {
+const D3Graph = (elementId = "graph", jsonData) => {
 	// set the dimensions and margins of the graph
 	const margin = { top: 20, right: 100, bottom: 20, left: 100 },
 		width = 1000 - margin.left - margin.right,
@@ -217,7 +217,7 @@ export default (elementId = "graph", jsonData) => {
 			// Highlight the nodes: every node is green except of him
 			links.style("stroke", "#B8B8B8");
             linkLabels.style("fill", (e) =>
-				e.source === d.source && e.target == d.target ? "black" : "#B8B8B8"
+				e.source === d.source && e.target === d.target ? "black" : "#B8B8B8"
 			);
             selfLinkLabels.style("fill", (e) =>
 				e.node === d.node ? "black" : "#B8B8B8"
@@ -228,7 +228,7 @@ export default (elementId = "graph", jsonData) => {
 				.style("stroke-width", "4");
 			// highlight the nodes
 			nodes.style("fill", (node) =>
-				node.id == d.source ||
+				node.id === d.source ||
 				node.id === d.target ||
 				node.id === d.node
 					? "#69b3b2"
@@ -256,3 +256,5 @@ export default (elementId = "graph", jsonData) => {
 
 	return svg;
 };
+
+export default D3Graph;
