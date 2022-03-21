@@ -239,7 +239,7 @@ const D3Graph = (elementId = "graph", jsonData) => {
 				.style("stroke", (e) =>
 					e.node === d.node ? "#69b3b2" : "#B8B8B8"
 				)
-				.style((e) => (e.node === d.node ? strokeDeep : strokeInit));
+				.style("stroke-width", (e) => (e.node === d.node ? strokeDeep : strokeInit));
 			linkLabels.style("fill", (e) =>
 				e.source === d.source && e.target === d.target
 					? "#69b3b2"
