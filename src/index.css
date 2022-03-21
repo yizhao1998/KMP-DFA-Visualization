@@ -3,6 +3,7 @@ body {
   font-family: "Lucida Console", "Courier New", monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-width: 1050px;
 }
 
 code {
