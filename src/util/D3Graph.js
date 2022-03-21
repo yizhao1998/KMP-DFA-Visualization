@@ -199,8 +199,8 @@ const D3Graph = (elementId = "graph", jsonData) => {
 			nodes.style("fill", "#69b3a2");
 			links.style("stroke", "black").style("stroke-width", "1");
 			selfLinks.style("stroke", "green").style("stroke-width", "1");
-            linkLabels.style("fill", "black");
-            selfLinkLabels.style("fill", "black");
+			linkLabels.style("fill", "black");
+			selfLinkLabels.style("fill", "black");
 		}
 
 		// nodes and labels both listen to the mouse over and mouse out event
@@ -215,17 +215,22 @@ const D3Graph = (elementId = "graph", jsonData) => {
 		// links listen to event
 		function linkMouseOverHighlight(d) {
 			// Highlight the nodes: every node is green except of him
-			links.style("stroke", "#B8B8B8");
-            linkLabels.style("fill", (e) =>
-				e.source === d.source && e.target === d.target ? "black" : "#B8B8B8"
+			links.style("stroke", (e) =>
+				e.source === d.source && e.target === d.target
+					? "#69b3b2"
+					: "#B8B8B8"
 			);
-            selfLinkLabels.style("fill", (e) =>
-				e.node === d.node ? "black" : "#B8B8B8"
+			selfLinks.style("stroke", (e) =>
+				e.node === d.node ? "#69b3b2" : "#B8B8B8"
 			);
-			selfLinks.style("stroke", "#B8B8B8");
-			d3.select(this)
-				.style("stroke", "#69b3b2")
-				.style("stroke-width", "4");
+			linkLabels.style("fill", (e) =>
+				e.source === d.source && e.target === d.target
+					? "#69b3b2"
+					: "#B8B8B8"
+			);
+			selfLinkLabels.style("fill", (e) =>
+				e.node === d.node ? "#69b3b2" : "#B8B8B8"
+			);
 			// highlight the nodes
 			nodes.style("fill", (node) =>
 				node.id === d.source ||
@@ -240,12 +245,12 @@ const D3Graph = (elementId = "graph", jsonData) => {
 			nodes.style("fill", "#69b3a2");
 			links.style("stroke", "black").style("stroke-width", "1");
 			selfLinks.style("stroke", "green").style("stroke-width", "1");
-            linkLabels.style("fill", "black");
-            selfLinkLabels.style("fill", "black");
+			linkLabels.style("fill", "black");
+			selfLinkLabels.style("fill", "black");
 		}
 
 		// links and selfLinks both listen to the mouse over and mouse out event
-		[links, selfLinks].forEach((x) => {
+		[links, selfLinks, linkLabels, selfLinkLabels].forEach((x) => {
 			x.on("mouseover", function (event, d) {
 				linkMouseOverHighlight.call(this, d);
 			}).on("mouseout", function (event, d) {

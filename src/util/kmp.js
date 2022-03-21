@@ -68,8 +68,6 @@ const kmp = (pattern) => {
                 }
             }
         }
-        // console.log(linkMap);
-        // console.log(selfLinkMap);
         selfLinks = selfLinks.concat(Object.values(selfLinkMap));
         links = links.concat(Object.values(linkMap));
     }
@@ -81,4 +79,3 @@ const kmp = (pattern) => {
 };
 
 export default kmp;
-// console.log(kmp("ABABAC"));
