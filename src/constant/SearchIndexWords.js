@@ -1,4 +1,4 @@
-export default [
+const indexWords = [
     "KMP",
     "Visualization",
     "Finite State Automata",
@@ -6,3 +6,5 @@ export default [
     "FSA",
     "DFA",
 ];
+
+export default indexWords;
