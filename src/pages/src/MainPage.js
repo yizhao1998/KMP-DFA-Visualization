@@ -9,13 +9,13 @@ const MainPage = () => {
 	return (
 		<>
 			<Stack spacing={2}>
-				<div className="main-header">
+				<div className="main-header flex-center-flex1">
 					<Header />
 				</div>
-				<div className="main-body">
+				<div className="main-body flex-center-flex1">
 					<Body />
 				</div>
-				<div className="main-foot">
+				<div className="main-foot flex-center-flex1">
 					<Foot />
 				</div>
 			</Stack>

@@ -2,23 +2,21 @@
     background-color: #ffe4c4;
 }
 
-.main-header {
-    height: 20vh;
+.flex-center-flex1 {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex: 1;
+}
+
+.main-header {
+    height: 20vh;   
 }
 
 .main-body {
     height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .main-foot {
     height: 10vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
